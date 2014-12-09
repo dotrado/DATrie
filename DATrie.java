@@ -26,6 +26,7 @@ public class DATrie {
 	private static TreeMap<Character,Integer> chartoint=new TreeMap<Character,Integer>();
 	private static TreeMap<Integer, List<Integer>> checkMap=new TreeMap<Integer,List<Integer>>();
 	private static TreeMap<Integer,Integer> baseMap=new TreeMap<Integer,Integer>();
+	private static final char ENDING='#';
 	private int nbase=0;
 	public DATrie(){
 		init();
@@ -38,11 +39,14 @@ public class DATrie {
 		for(int i=0;i<symbolTable.length;i++){		
 			int value=chartoint.get(wordTable[wordTable.length-1]).intValue();
 			chartoint.put(symbolTable[i], value+i+1);		
-		}		
-		check[0]=-1;
+		}
+		chartoint.put(ENDING, wordTable.length+symbolTable.length+1);		
+		base[1]=1;
+		check[1]=-1;
 	}
 	
-	private void addWord(String word){			
+	private void addWord(String word){
+		word+=ENDING;		
 		for(int i=0;i<word.length();i++){
 			addtoTrie(word.charAt(i));
 		}
@@ -61,10 +65,10 @@ public class DATrie {
 						nbase=newbase(nbase);
 					}
 					addtoTrie(character);					
-				}else if(check[next]==0){
+				}else if(check[next]==0){					
 					check[next]=state;						
 					addtoCheckMap(state,chartoint.get(character));			
-					state=next;
+					state=next;					
 					base[state]=next;
 				}else{
 					throw new RuntimeException("what's wrong! ");
@@ -200,9 +204,10 @@ public class DATrie {
 	private boolean within(String word){
 		boolean flag =false;
 		preprocess();
+		word+=ENDING;
 		for(int i=0;i<word.length();i++){
 			char ch=word.charAt(i);
-			int  next = base[state]+chartoint.get(ch);
+			int  next = base[state]+chartoint.get(ch);			
 			if(next>base.length-1)
 				throw new RuntimeException("out of range!");
 			if(check[next]==state)
@@ -210,7 +215,7 @@ public class DATrie {
 			else
 				break;
 			if(i==word.length()-1)
-				flag=true;
+				flag=true;			
 		}
 		return flag;
 	}
@@ -241,7 +246,7 @@ public class DATrie {
 		//instance.printTrie("d:/trie.txt");
 		//instance.debug(new File("d:/dic.txt"));
 		long start = System.currentTimeMillis();
-		String word = "frightening";
+		String word = "accompany";
 		System.out.println(instance.within(word));
 		System.out.println(System.currentTimeMillis() - start); 
 	}
