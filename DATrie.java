@@ -25,7 +25,6 @@ public class DATrie {
 	private static final char[] symbolTable={' ','-','.','/'};
 	private static TreeMap<Character,Integer> chartoint=new TreeMap<Character,Integer>();
 	private static TreeMap<Integer, List<Integer>> checkMap=new TreeMap<Integer,List<Integer>>();
-	private static TreeMap<Integer,Integer> baseMap=new TreeMap<Integer,Integer>();
 	private static final char ENDING='#';
 	private int nbase=0;
 	public DATrie(){
