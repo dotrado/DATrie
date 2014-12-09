@@ -220,7 +220,7 @@ public class DATrie {
 		return flag;
 	}
 
-	private void debug(File dicfile) {
+	private void testTrie(File dicfile) {
 		BufferedReader in;
 		try {
 			in = new BufferedReader(new FileReader(dicfile));
@@ -244,7 +244,7 @@ public class DATrie {
 		DATrie instance = new DATrie();
 		instance.addWords(new File("d:/dic.txt"));
 		// instance.printTrie("d:/trie.txt");
-		// instance.debug(new File("d:/dic.txt"));
+		// instance.testTrie(new File("d:/dic.txt"));
 		long start = System.currentTimeMillis();
 		String word = "accompany";
 		System.out.println(instance.within(word));
